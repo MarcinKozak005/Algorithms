@@ -1,35 +1,33 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include <queue>
-#include<bits/stdc++.h>
+#include <list>
+#include <bits/stdc++.h> // find()
 
 using namespace std;
-
 
 class Graph
 {
     map<int,vector<int>> graphList;
+    map<int,double> costs;
 
     public:
     void addConnection(int first, int second)
     {
         if(graphList.find(first) != graphList.end())
-            graphList[first].push_back(second);\
+            graphList[first].push_back(second);
         else
         {
-            vector<int>* tmp = new vector<int>();
-            tmp->push_back(second);
-            graphList[first] = *(tmp);
+            graphList[first] = *(new vector<int>());
+            graphList[first].push_back(second);
         }
 
         if(graphList.find(second) != graphList.end())
-            graphList[second].push_back(first);\
+            graphList[second].push_back(first);
         else
         {
-            vector<int>* tmp = new vector<int>();
-            tmp->push_back(first);
-            graphList[second] = *(tmp);
+            graphList[second] = *(new vector<int>());
+            graphList[second].push_back(first);
         }
     }
 
@@ -38,52 +36,76 @@ class Graph
     void printGraph()
     {
         cout<<"Graph (as neighbourList)"<<endl;
-        for(auto it = graphList.begin(); it!=graphList.end(); it++)
+        for(auto vertex = graphList.begin(); vertex!=graphList.end(); vertex++)
         {
-            cout<<it->first<<" : ";
-            for(auto vit = it->second.begin(); vit != it->second.end(); vit++)
+            cout<<vertex->first<<" cost="<<costs[vertex->first]<<" : ";
+            for(auto neighbour = vertex->second.begin(); neighbour != vertex->second.end(); neighbour++)
             {
-                cout<<*vit<<" ";
+                cout<<*neighbour<<" ";
             }
             cout<<endl;
         }
     }
 
-};
+    void printCosts()
+    {
+        for(auto i: costs)
+            cout<<i.first<<" : "<<i.second<<endl;
+    }
 
+    void addCost(int index, int cost)
+    {
+        costs[index] = cost;
+    }
+
+    int getCost(int index)
+    {
+        return costs[index];
+    }
+
+};
 
 Graph BST(Graph graph, int start)
 {
     int current;
     Graph* result = new Graph();
-    vector<int> black;
-    vector<int> grey;
-    queue<int> queue;
+    vector<int> used;
+    list<int> queue;
 
-    queue.push(start);
-    grey.push_back(start);
+    queue.push_back(start);
+    result->addCost(start,0);
     while(!queue.empty())
     {
         current = queue.front();
-        queue.pop();
+        queue.pop_front();
         for(auto neighbour : graph.getNeighbours(current))
         {
-            if(find(black.begin(), black.end(), neighbour) == black.end() && find(grey.begin(), grey.end(), neighbour) == grey.end())
+            if(find(used.begin(), used.end(), neighbour) == used.end() && 
+            find(queue.begin(), queue.end(), neighbour) == queue.end())
             {
                 result->addConnection(current,neighbour);
-                grey.push_back(neighbour);
-                queue.push(neighbour);
+                queue.push_back(neighbour);
+                result->addCost(neighbour,result->getCost(current)+1);
             }
         }
-        black.push_back(current);
+        used.push_back(current);
     }
     return *result;
 }
 
 
+
 int main()
 {
     Graph graph;
+    /*
+    Graph visualization:
+        7-8-9
+        | | |
+        4-5-6
+        | | |
+        1-2-3
+    */
     graph.addConnection(1,2);
     graph.addConnection(1,4);
     
@@ -103,6 +125,14 @@ int main()
     graph.printGraph();
 
     BST(graph,1).printGraph();
+    /*
+    Result graph visualization:
+        7 8 9
+        | | |
+        4 5 6
+        | | |
+        1-2-3
+    */
 
     return 0;
 }
