@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include <algorithm>
     
 void Graph::addConnection(int first, int second)
 {
@@ -17,6 +18,9 @@ void Graph::addConnection(int first, int second)
         graphList[second] = *(new vector<int>());
         graphList[second].push_back(first);
     }
+    sort(graphList[first].begin(),graphList[first].end());
+    sort(graphList[second].begin(),graphList[second].end());
+    
 }
 
 vector<int> Graph::getNeighbours(int x){ return graphList[x];}

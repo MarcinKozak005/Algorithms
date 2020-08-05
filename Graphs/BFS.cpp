@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Graph BST(Graph graph, int start)
+Graph BFS(Graph graph, int start)
 {
     int current;
     Graph* result = new Graph();
@@ -38,16 +38,17 @@ Graph BST(Graph graph, int start)
 
 int main()
 {
-    Graph graph;
-    
     /*
-    Graph visualization:
-        7-8-9
-        | | |
-        4-5-6
-        | | |
-        1-2-3
+    Graph visualization:        Result graph visualization:                                                           
+        7-8-9                       7 8 9                                                         
+        | | |                       | | |                                        
+        4-5-6                       4 5 6                                       
+        | | |                       | | |                                        
+        1-2-3                       1-2-3                                       
     */
+
+    Graph graph;
+
     graph.addConnection(1,2);
     graph.addConnection(1,4);
     
@@ -66,16 +67,9 @@ int main()
     
     graph.printGraph();
 
-    BST(graph,1).printGraph();
+    BFS(graph,1).printGraph();
 
-    /*
-    Result graph visualization:
-        7 8 9
-        | | |
-        4 5 6
-        | | |
-        1-2-3
-    */
+    return 0;
 
     return 0;
 }
