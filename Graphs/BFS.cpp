@@ -1,69 +1,10 @@
 #include <iostream>
-#include <map>
 #include <vector>
 #include <list>
 #include <bits/stdc++.h> // find()
+#include "Graph.h"
 
 using namespace std;
-
-class Graph
-{
-    map<int,vector<int>> graphList;
-    map<int,double> costs;
-
-    public:
-    void addConnection(int first, int second)
-    {
-        if(graphList.find(first) != graphList.end())
-            graphList[first].push_back(second);
-        else
-        {
-            graphList[first] = *(new vector<int>());
-            graphList[first].push_back(second);
-        }
-
-        if(graphList.find(second) != graphList.end())
-            graphList[second].push_back(first);
-        else
-        {
-            graphList[second] = *(new vector<int>());
-            graphList[second].push_back(first);
-        }
-    }
-
-    vector<int> getNeighbours(int x){ return graphList[x];}
-
-    void printGraph()
-    {
-        cout<<"Graph (as neighbourList)"<<endl;
-        for(auto vertex = graphList.begin(); vertex!=graphList.end(); vertex++)
-        {
-            cout<<vertex->first<<" cost="<<costs[vertex->first]<<" : ";
-            for(auto neighbour = vertex->second.begin(); neighbour != vertex->second.end(); neighbour++)
-            {
-                cout<<*neighbour<<" ";
-            }
-            cout<<endl;
-        }
-    }
-
-    void printCosts()
-    {
-        for(auto i: costs)
-            cout<<i.first<<" : "<<i.second<<endl;
-    }
-
-    void addCost(int index, int cost)
-    {
-        costs[index] = cost;
-    }
-
-    int getCost(int index)
-    {
-        return costs[index];
-    }
-
-};
 
 Graph BST(Graph graph, int start)
 {
@@ -98,6 +39,7 @@ Graph BST(Graph graph, int start)
 int main()
 {
     Graph graph;
+    
     /*
     Graph visualization:
         7-8-9
@@ -125,6 +67,7 @@ int main()
     graph.printGraph();
 
     BST(graph,1).printGraph();
+
     /*
     Result graph visualization:
         7 8 9
