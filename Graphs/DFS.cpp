@@ -34,8 +34,6 @@ Graph DFS(Graph graph, int start)
 }
 
 
-
-
 int main()
 {   
     /*
@@ -101,7 +99,5 @@ int main()
 
     DFS(graph2,1).printGraph();
     
-    
-
     return 0;
 }

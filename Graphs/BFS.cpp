@@ -35,7 +35,6 @@ Graph BFS(Graph graph, int start)
 }
 
 
-
 int main()
 {
     /*
@@ -68,8 +67,6 @@ int main()
     graph.printGraph();
 
     BFS(graph,1).printGraph();
-
-    return 0;
 
     return 0;
 }
