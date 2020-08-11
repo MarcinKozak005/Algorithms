@@ -9,7 +9,7 @@ using namespace std;
 Graph BFS(Graph graph, int start)
 {
     int current;
-    Graph* result = new Graph();
+    Graph* result = new Graph(false);
     vector<int> used;
     list<int> queue;
 
@@ -46,7 +46,7 @@ int main()
         1-2-3                       1-2-3                                       
     */
 
-    Graph graph;
+    Graph graph(false);
 
     graph.addConnection(1,2);
     graph.addConnection(1,4);

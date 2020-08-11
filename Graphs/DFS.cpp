@@ -7,7 +7,7 @@ using namespace std;
 
 Graph DFS(Graph graph, int start)
 {
-    Graph* result = new Graph();
+    Graph* result = new Graph(false);
     vector<pair<int,int>> stack;
     vector<int> visited;
     int current, parent;
@@ -45,7 +45,7 @@ int main()
         1-2-3                       1 2-3                                       
     */
 
-    Graph graph;
+    Graph graph(false);
 
     graph.addConnection(1,2);
     graph.addConnection(1,4);
@@ -77,7 +77,7 @@ int main()
           9   6-8                     9   6-8
     */
 
-   Graph graph2;
+   Graph graph2(false);
 
     graph2.addConnection(1,2);
     graph2.addConnection(1,4);

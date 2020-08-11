@@ -1,32 +1,37 @@
 #include "Graph.h"
+#include <bits/stdc++.h>
 #include <algorithm>
-    
-void Graph::addConnection(int first, int second)
-{
-    if(graphList.find(first) != graphList.end())
-        graphList[first].push_back(second);
-    else
-    {
-        graphList[first] = *(new vector<int>());
-        graphList[first].push_back(second);
-    }
 
-    if(graphList.find(second) != graphList.end())
-        graphList[second].push_back(first);
-    else
-    {
-        graphList[second] = *(new vector<int>());
-        graphList[second].push_back(first);
-    }
-    sort(graphList[first].begin(),graphList[first].end());
-    sort(graphList[second].begin(),graphList[second].end());
-    
+
+Graph::Graph(bool isDirected)
+{
+    this->isDirected = isDirected;
 }
 
 void Graph::addConnection(int first, int second, double weight)
 {
-    addConnection(first,second);
-    weights[pair<int,int>(min(first,second),max(first,second))] = weight;
+    if(graphList.find(first) != graphList.end())
+        graphList[first].push_back(second);
+    else
+        graphList[first] = *(new vector<int>(1, second));
+
+    if(isDirected)
+    {
+        if(graphList.find(second) == graphList.end())
+            graphList[second] = *(new vector<int>);
+        weights[pair<int,int>(first,second)] = weight;
+    }
+    else
+    {
+        if(graphList.find(second) != graphList.end())
+            graphList[second].push_back(first);
+        else
+            graphList[second] = *(new vector<int>(1, first));
+            
+        sort(graphList[second].begin(),graphList[second].end());
+        weights[pair<int,int>(min(first,second),max(first,second))] = weight;
+    }
+    sort(graphList[first].begin(),graphList[first].end());
 }
 
 vector<int> Graph::getNeighbours(int x){ return graphList[x];}
@@ -79,5 +84,7 @@ double Graph::getCost(int index)
 
 double Graph::getWeight(int first, int second)
 {
+    if(isDirected)
+        return weights[pair<int,int>(first,second)]; 
     return weights[pair<int,int>(min(first,second),max(first,second))];
 }

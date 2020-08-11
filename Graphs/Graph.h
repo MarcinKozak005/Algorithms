@@ -13,10 +13,11 @@ class Graph
     map<int,vector<int>> graphList;
     map<int,double> costs;
     map< pair<int,int>, double> weights;
+    bool isDirected;
 
     public:
-    void addConnection(int first, int second);
-    void addConnection(int first, int second, double weight);
+    Graph(bool isDirected);
+    void addConnection(int first, int second, double weight=1);
     vector<int> getNeighbours(int x);
     vector<int> getVertices();
     void printGraph();

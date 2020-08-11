@@ -1,12 +1,13 @@
 #include <iostream>
 #include <list>
+#include <bits/stdc++.h> // find()
 #include "Graph.h"
 
 using namespace std;
 
 Graph Dijkstra(Graph graph, int start)
 {
-    Graph result = *(new Graph());
+    Graph result = *(new Graph(false));
     list< pair<double,int> > list; // "priorityQueue"
     int* parentTab = new int[graph.getVertices().size()]; // parentTab[0] is unused
 
@@ -60,7 +61,7 @@ int main()
        (1)--7--(2)               (1)--7--(2)                           
     */
 
-    Graph graph;
+    Graph graph(false);
 
     graph.addConnection(1,2,7);
     graph.addConnection(1,3,9);
@@ -76,7 +77,7 @@ int main()
     graph.addConnection(5,6,9);
     graph.printGraph();
 
-    Dijkstra(graph,1).printWeights();
+    Dijkstra(graph,1).printGraph();
 
     return 0;
 }
