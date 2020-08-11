@@ -1,5 +1,4 @@
 #include <iostream>
-#include <list>
 #include <bits/stdc++.h> // numeric_limits<double>::infinity()
 #include "Graph.h"
 
