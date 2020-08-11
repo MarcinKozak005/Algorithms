@@ -1,9 +1,18 @@
 #include <iostream>
 #include <list>
+#include <exception>
 #include <bits/stdc++.h>
 #include "Graph.h"
 
 using namespace std;
+
+class NegativeCycleException: public exception
+{
+  virtual const char* what() const throw()
+  {
+    return "Graph contains negative cycle";
+  }
+};
 
 Graph BellmanFord(Graph graph, int start)
 {
@@ -15,7 +24,7 @@ Graph BellmanFord(Graph graph, int start)
         result.addCost( elem, numeric_limits<double>::infinity() );
     result.addCost(start,0);
 
-    for(int _ = 0; _ < graph.getVertices().size(); _++)
+    for(int _ = 0; _ <= graph.getVertices().size(); _++)
     {
         // First edge vertex
         for(int i=1; i <= graph.getVertices().size(); i++)
@@ -26,6 +35,8 @@ Graph BellmanFord(Graph graph, int start)
                 // Relaxation
                 if(result.getCost(neighbour) > result.getCost(i) + graph.getWeight(i,neighbour))
                 {
+                    if(_ == graph.getVertices().size()) throw NegativeCycleException();
+                    
                     result.addCost(neighbour, result.getCost(i) + graph.getWeight(i,neighbour));
                     *(parentTab+neighbour) = i;
                 }

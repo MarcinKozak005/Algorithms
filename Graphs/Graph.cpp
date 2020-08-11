@@ -10,6 +10,7 @@ Graph::Graph(bool isDirected)
 
 void Graph::addConnection(int first, int second, double weight)
 {
+    // first -> second
     if(graphList.find(first) != graphList.end())
         graphList[first].push_back(second);
     else
@@ -23,6 +24,7 @@ void Graph::addConnection(int first, int second, double weight)
     }
     else
     {
+        // second -> first
         if(graphList.find(second) != graphList.end())
             graphList[second].push_back(first);
         else
@@ -34,7 +36,7 @@ void Graph::addConnection(int first, int second, double weight)
     sort(graphList[first].begin(),graphList[first].end());
 }
 
-vector<int> Graph::getNeighbours(int x){ return graphList[x];}
+vector<int> Graph::getNeighbours(int node){ return graphList[node];}
 
 vector<int> Graph::getVertices()
 {
@@ -67,20 +69,12 @@ void Graph::printCosts()
 void Graph::printWeights()
 {
     for(auto i: weights)
-    {
         cout<<"("<<i.first.first<<","<<i.first.second<<") = "<<i.second<<endl;
-    }
 }
 
-void Graph::addCost(int index, double cost)
-{
-    costs[index] = cost;
-}
+void Graph::addCost(int index, double cost){ costs[index] = cost;}
 
-double Graph::getCost(int index)
-{
-    return costs[index];
-}
+double Graph::getCost(int index){ return costs[index];}
 
 double Graph::getWeight(int first, int second)
 {

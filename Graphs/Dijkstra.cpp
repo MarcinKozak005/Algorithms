@@ -1,6 +1,6 @@
 #include <iostream>
 #include <list>
-#include <bits/stdc++.h> // find()
+#include <bits/stdc++.h> // numeric_limits<double>::infinity()
 #include "Graph.h"
 
 using namespace std;
@@ -22,6 +22,7 @@ Graph Dijkstra(Graph graph, int start)
         list.pop_front();
         for(auto neighbour: graph.getNeighbours(current.second))
         {
+            // Relaxation
             if(result.getCost(current.second) + graph.getWeight(current.second,neighbour) < result.getCost(neighbour))
             {
                 result.addCost(neighbour, result.getCost(current.second)+graph.getWeight(current.second,neighbour));
