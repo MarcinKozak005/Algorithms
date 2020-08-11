@@ -8,7 +8,7 @@ Graph Dijkstra(Graph graph, int start)
 {
     Graph result = *(new Graph(false));
     list< pair<double,int> > list; // "priorityQueue"
-    int* parentTab = new int[graph.getVertices().size()]; // parentTab[0] is unused
+    int* parentTab = new int[graph.getVertices().size()]; // notice indices shift
 
     for (auto elem : graph.getVertices())
         result.addCost( elem, numeric_limits<double>::infinity() );
@@ -25,7 +25,7 @@ Graph Dijkstra(Graph graph, int start)
             if(result.getCost(current.second) + graph.getWeight(current.second,neighbour) < result.getCost(neighbour))
             {
                 result.addCost(neighbour, result.getCost(current.second)+graph.getWeight(current.second,neighbour));
-                *(parentTab+neighbour) = current.second;
+                *(parentTab+neighbour-1) = current.second;
                 list.push_back(pair<double,int>(result.getCost(neighbour), neighbour));
             }
         }
@@ -35,7 +35,7 @@ Graph Dijkstra(Graph graph, int start)
     for(int i = 1; i <= graph.getVertices().size(); i++)
     {
         if( i!=start)
-            result.addConnection(i,*(parentTab+i), graph.getWeight(i,*(parentTab+i)));
+            result.addConnection(i,*(parentTab-1+i), graph.getWeight(i,*(parentTab-1+i)));
     }
 
     return result;

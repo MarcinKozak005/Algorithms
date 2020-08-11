@@ -17,8 +17,8 @@ class NegativeCycleException: public exception
 Graph BellmanFord(Graph graph, int start)
 {
     Graph result = *(new Graph(true));
-    int* parentTab = new int[graph.getVertices().size()]; // parentTab[0] is unused
-    *(parentTab+1) = -1; 
+    int* parentTab = new int[graph.getVertices().size()]; // notice indices shift
+    *(parentTab) = -1; 
 
     for (auto elem : graph.getVertices())
         result.addCost( elem, numeric_limits<double>::infinity() );
@@ -38,7 +38,7 @@ Graph BellmanFord(Graph graph, int start)
                     if(_ == graph.getVertices().size()) throw NegativeCycleException();
                     
                     result.addCost(neighbour, result.getCost(i) + graph.getWeight(i,neighbour));
-                    *(parentTab+neighbour) = i;
+                    *(parentTab-1+neighbour) = i;
                 }
             }
         }
@@ -46,7 +46,7 @@ Graph BellmanFord(Graph graph, int start)
 
     // Make Connections
     for(int i = 1; i <= graph.getVertices().size(); i++)
-        if(i!= start) result.addConnection(*(parentTab+i),i , graph.getWeight(i,*(parentTab+i)));
+        if(i!= start) result.addConnection(*(parentTab-1+i),i , graph.getWeight(i,*(parentTab-1+i)));
     return result;
 }
 
