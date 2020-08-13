@@ -8,10 +8,10 @@ using namespace std;
 
 class NegativeCycleException: public exception
 {
-  virtual const char* what() const throw()
-  {
-    return "Graph contains negative cycle";
-  }
+    virtual const char* what() const throw()
+    {
+        return "Graph contains negative cycle";
+    }
 };
 
 Graph BellmanFord(Graph graph, int start)

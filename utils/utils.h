@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -23,5 +24,15 @@ void swap(T* a, T* b)
 	*a = *b;
 	*b = tmp;
 } 
+
+
+template <class T>
+void printVector(vector<T> vec)
+{
+	cout<<"Vector: ";
+	for(auto elem: vec)
+		cout<<elem<<" ";
+	cout<<endl;
+}
 
 #endif
