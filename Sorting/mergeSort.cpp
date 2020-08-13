@@ -13,7 +13,7 @@ void mergeSort(T* begin, T* end)
         mergeSort(begin,divisor);
         mergeSort(divisor+1,end);
         // merge
-        T* tab = new T[end-begin];
+        T* tab = new T[end-begin+1];
         T* tmp = tab;
         T* i=begin, *j=divisor+1;
         for( ;i<=divisor && j<=end; )
@@ -25,7 +25,7 @@ void mergeSort(T* begin, T* end)
         while(j <= end) *tmp++ = *j++;
         tmp=tab;
         for(T* pointer=begin; pointer<=end;pointer++,tmp++) *pointer = *tmp;
-        free(tab);
+        delete [] tab;
     }
     
 }
