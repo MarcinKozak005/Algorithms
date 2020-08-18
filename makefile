@@ -37,6 +37,9 @@ AStar: Graphs/AStar.cpp Graphs/Graph.cpp utils/utils.h
 	g++ -o AStar Graphs/AStar.cpp Graphs/Graph.cpp utils/utils.h
 	./AStar
 # Data Structures
+DoublyLinkedList: DataStructures/DoublyLinkedList.cpp
+	g++ -o DoublyLinkedList DataStructures/DoublyLinkedList.cpp
+	./DoublyLinkedList
 HashMap: DataStructures/HashMap.cpp
 	g++ -o HashMap DataStructures/HashMap.cpp 
 	./HashMap

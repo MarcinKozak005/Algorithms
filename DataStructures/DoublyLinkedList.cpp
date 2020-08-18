@@ -132,13 +132,26 @@ class DoublyLinkedList
 
 int main()
 {
-    DoublyLinkedList<int> x;
-    x.add(12);
-    x.add(2000);
-    x.add(199);
-    x.printList();
-    x.add(1,23);
-    x.printList();
-    cout<<x.get(4)<<endl;
+    DoublyLinkedList<int> linkedList;
+    linkedList.printList();
+    linkedList.add(1);
+    linkedList.add(2);
+    linkedList.add(3);
+    linkedList.printList();
+    linkedList.add(1,100);
+    linkedList.printList();
+    linkedList.add(3,101);
+    linkedList.printList();
+    cout<<"linkedList[4] = "<<linkedList.get(4)<<endl;
+    cout<<endl;
+    cout<<"Contains:"<<endl;
+    cout<<"101: "<<linkedList.contains(101)<<endl;
+    cout<<"102: "<<linkedList.contains(102)<<endl;
+
+    cout<<"Clear"<<endl;
+    linkedList.clear();
+    linkedList.printList();
+    
+
        
 }
