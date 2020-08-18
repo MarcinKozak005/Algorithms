@@ -36,5 +36,9 @@ FloydWarshall: Graphs/FloydWarshall.cpp Graphs/Graph.cpp
 AStar: Graphs/AStar.cpp Graphs/Graph.cpp utils/utils.h
 	g++ -o AStar Graphs/AStar.cpp Graphs/Graph.cpp utils/utils.h
 	./AStar
+# Data Structures
+HashMap: DataStructures/HashMap.cpp
+	g++ -o HashMap DataStructures/HashMap.cpp 
+	./HashMap
 clean:
 	rm -f bubbleSort insertionSort selectionSort quickSort mergeSort heapSort BFS DFS Dijkstra BellmanFord FloydWarshall AStar
